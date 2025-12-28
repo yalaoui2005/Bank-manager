@@ -1,5 +1,8 @@
 package model;
 
+import repository.BankService;
+import services.BankServiceImpl;
+
 public class ModelTest {
     public static void main(String[] args) {
         BankService service = new BankServiceImpl();

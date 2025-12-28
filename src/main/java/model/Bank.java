@@ -6,6 +6,11 @@ import java.util.List;
 public class Bank {
     private final List<Account> accounts = new ArrayList<>();
 
+    private Bank(){}
+
+    public static Bank getInstance(){
+        return new Bank();
+    }
     public void addAccount(Account account) {
         if (account == null) {
             throw new IllegalArgumentException("Account cannot be null.");
