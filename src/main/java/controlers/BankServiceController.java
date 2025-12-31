@@ -11,16 +11,18 @@ public class BankServiceController {
         return bankService.verification(ownerName, serialNumber, password);
     }
 
-    public  Boolean RegisterRequest(String ownerName, String Password, AccountType type, double initialDeposit) {
-        Account newaccount = bankService.createAccount(ownerName, Password, type, initialDeposit);
-        return bankService.verification(ownerName, newaccount.getSerialNumber(), Password);
+    public Account RegisterRequest(String ownerName, String password,
+                                   AccountType type, double initialDeposit) {
+        return bankService.createAccount(ownerName, password, type, initialDeposit);
     }
 
-    public  Boolean DepositRequest(String ownerName, String serialNumber, double amount) {
+
+    public Account DepositRequest(String ownerName, String serialNumber, double amount) {
         return bankService.deposit(ownerName, serialNumber, amount);
     }
 
-    public Boolean WithdrawRequest(String OwnerName, String SerialNumber, double amount){
-        return bankService.withdraw(OwnerName, SerialNumber, amount);
+    public Account WithdrawRequest(String ownerName, String serialNumber, double amount) {
+        return bankService.withdraw(ownerName, serialNumber, amount);
     }
+
 }

@@ -7,9 +7,9 @@ import java.util.List;
 public interface BankService {
     Account createAccount(String ownerName, String Password, AccountType type, double initialDeposit);
 
-    boolean deposit(String OwnerName, String SerialNumber, double amount);
+    Account deposit(String OwnerName, String SerialNumber, double amount);
 
-    boolean withdraw(String OwnerName, String SerialNumber, double amount);
+    Account withdraw(String OwnerName, String SerialNumber, double amount);
 
     boolean verification(String ownerName, String serialNumber, String password);
     boolean verification2(String ownerName, String password);

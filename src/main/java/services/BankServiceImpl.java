@@ -72,30 +72,24 @@ public class BankServiceImpl implements BankService {
 
 
     @Override
-    public boolean deposit(String OwnerName, String SerialNumber, double amount) {
+    public Account deposit(String OwnerName, String SerialNumber, double amount) {
         Account account = bank.findAccountByOwnerNameAndSerialNumber(OwnerName, SerialNumber);
-        if (account == null) return false;
-
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Deposit amount must be > 0.");
+        if (account == null || amount <= 0) {
+            throw new IllegalArgumentException("Invalid deposit");
         }
         account.setBalance(account.getBalance() + amount);
-        return true;
+        return account;
     }
 
 
     @Override
-    public boolean withdraw(String OwnerName, String SerialNumber, double amount) {
+    public Account withdraw(String OwnerName, String SerialNumber, double amount) {
         Account account = bank.findAccountByOwnerNameAndSerialNumber(OwnerName, SerialNumber);
-        if (account == null) return false;
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Withdraw amount must be > 0.");
-        }
-        if (amount > account.getBalance()) {
-            return false;
+        if (account == null || amount <= 0 || amount > account.getBalance()) {
+            throw new IllegalArgumentException("Invalid withdraw");
         }
         account.setBalance(account.getBalance() - amount);
-        return true;
+        return account;
     }
 
     @Override
