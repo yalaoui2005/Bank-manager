@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import repository.BankService;
 import services.BankServiceImpl;
@@ -22,5 +22,5 @@ public class ModelTest {
             System.out.println(a);
         }
     }
-}
+}*/
 

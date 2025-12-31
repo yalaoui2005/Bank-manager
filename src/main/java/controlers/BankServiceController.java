@@ -1,5 +1,6 @@
 package controlers;
 
+import model.Account;
 import model.AccountType;
 import services.BankServiceImpl;
 
@@ -10,9 +11,9 @@ public class BankServiceController {
         return bankService.verification(ownerName, serialNumber, password);
     }
 
-    public  Boolean RegisterRequest(String ownerName, String SerialNumber, String Password, AccountType type, double initialDeposit) {
-        bankService.createAccount(ownerName, SerialNumber, Password, type, initialDeposit);
-        return bankService.verification(ownerName, SerialNumber, Password);
+    public  Boolean RegisterRequest(String ownerName, String Password, AccountType type, double initialDeposit) {
+        Account newaccount = bankService.createAccount(ownerName, Password, type, initialDeposit);
+        return bankService.verification(ownerName, newaccount.getSerialNumber(), Password);
     }
 
     public  Boolean DepositRequest(String ownerName, String serialNumber, double amount) {

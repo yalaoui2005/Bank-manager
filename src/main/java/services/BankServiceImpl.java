@@ -6,6 +6,7 @@ import model.Bank;
 import repository.BankService;
 
 import java.util.List;
+import java.util.Random;
 
 public class BankServiceImpl implements BankService {
     private final Bank bank;
@@ -21,18 +22,34 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Account createAccount(String ownerName,String SerialNumber, String Password, AccountType type, double initialDeposit) {
+    public Account createAccount(String ownerName, String Password, AccountType type, double initialDeposit) {
         if (initialDeposit < 0) {
             throw new IllegalArgumentException("Initial deposit cannot be negative.");
         }
-        if(verification(ownerName, SerialNumber, Password)) {
+        if(verification2(ownerName, Password)) {
             throw new IllegalArgumentException("Account already exists.");
         }
         int id = nextId++;
+        String SerialNumber = generateCardNumber();
         System.out.println("banck current ID: " + nextId);
         Account account = new Account(id, SerialNumber, ownerName, Password, type, initialDeposit);
         bank.addAccount(account);
         return account;
+    }
+
+    public static String generateCardNumber() {
+        Random random = new Random();
+        StringBuilder cardNumber = new StringBuilder();
+
+        for (int i = 0; i < 16; i++) {
+            cardNumber.append(random.nextInt(10));
+
+            if ((i + 1) % 4 == 0 && i != 15) {
+                cardNumber.append("-");
+            }
+        }
+
+        return cardNumber.toString();
     }
 
     @Override
@@ -43,6 +60,14 @@ public class BankServiceImpl implements BankService {
             return false;
         }
         return account.getPassword().equals(password);
+    }
+    @Override
+    public boolean verification2(String ownerName, String password) {
+        Account account = bank.findAccountByNameAndPassword(ownerName, password);
+        if (account == null) {
+            return false;
+        }
+        return true;
     }
 
 

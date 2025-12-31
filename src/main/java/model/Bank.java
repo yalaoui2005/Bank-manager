@@ -40,6 +40,13 @@ public class Bank {
         return null;
     }
 
+    public Account findAccountByNameAndPassword(String OwnerName, String password) {
+        for (Account a : accounts) {
+            if (a.getOwnerName().equals(OwnerName) && a.getSerialNumber().equals(password)) return a;
+        }
+        return null;
+    }
+
     public List<Account> getAccounts() {
         return Collections.unmodifiableList(accounts);
     }
