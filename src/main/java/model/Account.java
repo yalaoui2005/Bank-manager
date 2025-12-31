@@ -52,7 +52,7 @@ public class Account {
                 "id=" + id +
                 ", SerialNumber='" + SerialNumber + '\'' +
                 ", ownerName='" + ownerName + '\'' +
-                ", password='" + password + '\'' +
+            
                 ", type=" + type +
                 ", balance=" + balance +
                 '}';

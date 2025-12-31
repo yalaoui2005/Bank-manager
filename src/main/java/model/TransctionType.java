@@ -1,5 +1,5 @@
 package model;
-enum TransactionType {
+  enum TransactionType {
     DEPOSIT, WITHDRAW
 }
 

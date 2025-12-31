@@ -5,17 +5,13 @@ import controlers.BankServiceController;
 import model.Account;
 import model.AccountType;
 
-import javax.swing.*;
-
 public class BankInterface {
-    BankServiceController bankServiceController ;
+    BankServiceController bankServiceController;
     private String currentOwnerName;
     private String currentSerialNumber;
-
+    private static Scanner scanner = new Scanner(System.in); 
 
     public boolean AuthentificationOptions(int choice) {
-
-        Scanner scanner = new Scanner(System.in);
         boolean success = false;
 
         if (choice == 1) {
@@ -75,10 +71,7 @@ public class BankInterface {
         return success;
     }
 
-
-        public void BankOptions() {
-
-        Scanner scanner = new Scanner(System.in);
+    public void BankOptions() {
         boolean userConnected = true;
 
         while (userConnected) {
@@ -146,12 +139,7 @@ public class BankInterface {
         System.out.println("Balance: " + account.getBalance());
     }
 
-
-
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
         BankInterface bankInterface = new BankInterface();
         bankInterface.bankServiceController = new BankServiceController();
 
@@ -189,6 +177,4 @@ public class BankInterface {
 
         scanner.close();
     }
-
-
 }

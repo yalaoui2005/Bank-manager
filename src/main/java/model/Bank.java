@@ -42,7 +42,8 @@ public class Bank {
 
     public Account findAccountByNameAndPassword(String OwnerName, String password) {
         for (Account a : accounts) {
-            if (a.getOwnerName().equals(OwnerName) && a.getSerialNumber().equals(password)) return a;
+            if (a.getOwnerName().equals(OwnerName) && a.getPassword().equals(password)) return a;
+            
         }
         return null;
     }
