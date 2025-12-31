@@ -7,8 +7,8 @@ public class ModelTest {
     public static void main(String[] args) {
         BankService service = new BankServiceImpl();
 
-        Account a1 = service.createAccount("Alice", AccountType.CHECKING, 1000);
-        Account a2 = service.createAccount("Bob", AccountType.SAVINGS, 200);
+        Account a1 = service.createAccount("Alice","12345678","pizza4321", AccountType.CHECKING, 1000);
+        Account a2 = service.createAccount("Bob","87654321","cake1234", AccountType.SAVINGS, 200);
 
         service.deposit(a2.getId(), 50);
         boolean ok = service.withdraw(a1.getId(), 1200); // should fail (insufficient)

@@ -50,9 +50,11 @@ public class Account {
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", owner='" + ownerName + '\'' +
+                ", SerialNumber='" + SerialNumber + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", password='" + password + '\'' +
                 ", type=" + type +
-                ", balance=" + String.format("%.2f", balance) +
+                ", balance=" + balance +
                 '}';
     }
 }

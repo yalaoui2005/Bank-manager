@@ -25,6 +25,9 @@ public class BankServiceImpl implements BankService {
         if (initialDeposit < 0) {
             throw new IllegalArgumentException("Initial deposit cannot be negative.");
         }
+        if(verification(ownerName, SerialNumber, Password)) {
+            throw new IllegalArgumentException("Account already exists.");
+        }
         int id = nextId++;
         System.out.println("banck current ID: " + nextId);
         Account account = new Account(id, SerialNumber, ownerName, Password, type, initialDeposit);
@@ -33,13 +36,19 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public boolean verification(String ownerName, String SerialNumber, String Password){
+    public boolean verification(String ownerName, String serialNumber, String password) {
+        Account account = bank.findAccountByOwnerNameAndSerialNumber(ownerName, serialNumber);
 
+        if (account == null) {
+            return false;
+        }
+        return account.getPassword().equals(password);
     }
 
+
     @Override
-    public boolean deposit(int accountId, double amount) {
-        Account account = bank.findAccount(accountId);
+    public boolean deposit(String OwnerName, String SerialNumber, double amount) {
+        Account account = bank.findAccountByOwnerNameAndSerialNumber(OwnerName, SerialNumber);
         if (account == null) return false;
 
         if (amount <= 0) {
@@ -51,8 +60,8 @@ public class BankServiceImpl implements BankService {
 
 
     @Override
-    public boolean withdraw(int accountId, double amount) {
-        Account account = bank.findAccount(accountId);
+    public boolean withdraw(String OwnerName, String SerialNumber, double amount) {
+        Account account = bank.findAccountByOwnerNameAndSerialNumber(OwnerName, SerialNumber);
         if (account == null) return false;
         if (amount <= 0) {
             throw new IllegalArgumentException("Withdraw amount must be > 0.");

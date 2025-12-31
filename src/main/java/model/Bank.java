@@ -29,6 +29,13 @@ public class Bank {
         return null;
     }
 
+    public Account findAccountByOwnerNameAndSerialNumber(String OwnerName, String SerialNumber) {
+        for (Account a : accounts) {
+            if (a.getOwnerName().equals(OwnerName) && a.getSerialNumber().equals(SerialNumber)) return a;
+        }
+        return null;
+    }
+
     public List<Account> getAccounts() {
         return Collections.unmodifiableList(accounts);
     }
