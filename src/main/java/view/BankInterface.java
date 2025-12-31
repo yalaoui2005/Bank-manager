@@ -5,13 +5,11 @@ import controlers.BankServiceController;
 import model.Account;
 import model.AccountType;
 
-import javax.swing.*;
-
 public class BankInterface {
-    BankServiceController bankServiceController ;
+
+    BankServiceController bankServiceController;
     private String currentOwnerName;
     private String currentSerialNumber;
-
 
     public boolean AuthentificationOptions(int choice) {
 
@@ -60,9 +58,7 @@ public class BankInterface {
                     ? AccountType.SAVINGS
                     : AccountType.CHECKING;
 
-            Account account = bankServiceController.RegisterRequest(
-                    ownerName, password, type, initialDeposit
-            );
+            Account account = bankServiceController.RegisterRequest(ownerName, password, type, initialDeposit);
 
             System.out.println("Account created successfully!");
             System.out.println("Your Serial Number: " + account.getSerialNumber());
@@ -75,8 +71,7 @@ public class BankInterface {
         return success;
     }
 
-
-        public void BankOptions() {
+    public void BankOptions() {
 
         Scanner scanner = new Scanner(System.in);
         boolean userConnected = true;
@@ -86,14 +81,16 @@ public class BankInterface {
             System.out.println("\nBank Operations:");
             System.out.println("1) Deposit");
             System.out.println("2) Withdraw");
-            System.out.println("3) Logout");
+            System.out.println("3) Apply interest");
+            System.out.println("4) Report panne");
+            System.out.println("5) Resolve panne");
+            System.out.println("6) Logout");
             System.out.print("Your choice: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
-
                 case 1:
                     System.out.print("Amount to deposit: ");
                     double deposit = scanner.nextDouble();
@@ -127,6 +124,28 @@ public class BankInterface {
                     break;
 
                 case 3:
+                    try {
+                        Account acc = bankServiceController.ApplyInterest(
+                                currentOwnerName, currentSerialNumber
+                        );
+                        System.out.println("Interest applied using strategy.");
+                        showAccount(acc);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Reason for panne: ");
+                    String panneReason = scanner.nextLine();
+                    bankServiceController.ReportPanne(panneReason);
+                    break;
+
+                case 5:
+                    bankServiceController.ResolvePanne();
+                    break;
+
+                case 6:
                     System.out.println("Logged out.");
                     userConnected = false;
                     break;
@@ -146,8 +165,6 @@ public class BankInterface {
         System.out.println("Balance: " + account.getBalance());
     }
 
-
-
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -164,15 +181,15 @@ public class BankInterface {
             System.out.println("\nAuthentication Options:");
             System.out.println("1) Login");
             System.out.println("2) Create Account");
-            System.out.println("0) Exit Bank");
+            System.out.println("3) Exit");
             System.out.print("Your choice: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 0) {
+            if (choice == 3) {
+                System.out.println("Goodbye!");
                 bankOpen = false;
-                System.out.println("Bank closed.");
             }
             else if (choice == 1 || choice == 2) {
 
@@ -189,6 +206,4 @@ public class BankInterface {
 
         scanner.close();
     }
-
-
 }
