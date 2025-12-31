@@ -4,12 +4,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class Bank {
+    private static Bank instance;
     private final List<Account> accounts = new ArrayList<>();
 
     private Bank(){}
 
     public static Bank getInstance(){
-        return new Bank();
+        if (instance == null) {
+            instance = new Bank();
+        }
+        return instance;
     }
     public void addAccount(Account account) {
         if (account == null) {
